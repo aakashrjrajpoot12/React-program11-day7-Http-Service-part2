@@ -1,11 +1,42 @@
 import React from "react";
 import "./style.css";
+import axios from 'axios';
 
-export default function App() {
-  return (
-    <div>
-      <h1>Hello StackBlitz!</h1>
-      <p>Start editing to see some magic happen :)</p>
-    </div>
-  );
-}
+export default class App extends React.Component {
+  constructor(props){       //constructor
+    super(props);
+    this.state={            //state object
+      
+      persons:[]
+    }
+  }
+
+componentDidMount(){
+  axios.get('http://jsonplaceholder.typicode.com/users')     //Actual url of API
+  
+  
+  .then((result) =>{
+      this.setState({persons:result.data.items,
+      });//statechange
+  })
+  }
+
+
+   
+render(){
+  
+    return(
+        <ul>
+          {this.persons.map((item)=> 
+        (<li> 
+          {item.name}
+          </li>
+          ))}
+          </ul>
+      );
+      
+  }
+  }
+  
+
+  
